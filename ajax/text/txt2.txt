@@ -1,0 +1,6 @@
+﻿<div style="margin-bottom: 10px"	
+	<h1 style="color:red">Ajax text.</h1>
+	<p style="color:blue">내용은 HTML태그로 구성</p>	
+	<img src="//via.placeholder.com/350x150" alt="free img" />
+
+</div>

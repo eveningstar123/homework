@@ -4,12 +4,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Ajax-example1.html</title>
+	<title>Ajax-example2.html</title>
 	<link rel="stylesheet" href="">
 </head>
 <body>
 	<h1>
-		$.ajax()함수 사용법
+		$.ajax()함수 사용법2
 	</h1>
 	<div class="test1">
 		<input type="button" value="push" id="btn_test">
@@ -24,12 +24,12 @@
 			//버튼 클릭 
 			$('#btn_test').click(function(){
 				$.ajax({
-					url: "text/txt1.txt",
+					url: "text/txt2.txt",
 					type: "get",
 					/* 파일 읽기에 성공한 경우 */
 				 	success : function(data){
 						//단순 문자열이 data값일때
-						$("#result").html(data);				 		
+						$("#result").append(data);				 		
 				 	},
 				 	/* 파일 읽기에 실패한 경우 - 주소 오타, 웹서버 중지 등 */
 				 	error : function(xhr, textStatus, errorThrown){
