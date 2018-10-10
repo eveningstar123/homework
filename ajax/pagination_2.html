@@ -67,7 +67,8 @@
         dataType : 'json',
         success : function(data){
           console.log(data);
-          var totalPage = data.total_page;
+          var lengthD = Oject.keys(data2018).length;
+          var totalPage = lengthD;
           var data2 = data.result; // json 데이터
           var html = "";
           var pagination = null; //다시 빈값 만들어주기
@@ -84,6 +85,7 @@
         },
         error:function(request,status,error){
           console.log(request.responseText);
+          console.log(data);
         //  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
       }); //end of ajax
