@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>paginatioin</title>
+  <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+
+</head>
+
+<body>
+<!-- wrap -->
+<div class="wrapper">
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>jQuery Pagination</h1>
+        <p>Simple pagination using the TWBS pagination JS library. Click the buttons below to navigate to the appropriate content</p>
+        <div id="page-content" class="page-content">
+          <table>
+            <caption></caption>
+            <colgroup>
+              <col width="21%"/>
+              <col width="*"/>
+              <col width="14%"/>
+            </colgroup>
+            <tbody></tbody>
+          </table>          
+        </div>
+        <!-- pagination -->
+        <ul id="pagination" class="pagination"></ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.1/jquery.twbsPagination.min.js"></script>
+<script>
+  $(document).ready(function(){
+    //load 초기화면
+    $('#pagination').twbsPagination({
+      totalPages: 1,
+      visiblePages: 10,
+      onPageClick: function (event, page) {   
+          contentList(page);          
+      }
+    });
+    //페이지 리로드
+    var pageReload = $('#pagination').data('twbsPagination');
+    contentList(1);
+    //페이지 불러오기 함수
+    function contentList(page){
+      $.ajax({
+        url :'text/data2018.js',
+        type : 'get',
+        data : {
+          page : page
+        },
+        dataType : 'json',
+        success : function(data){
+          var totalPage = data.total_page;
+          var data2 = data.result; // json 데이터
+          var html = "";
+          var pagination = null; //다시 빈값 만들어주기
+          //data.result로 게시물 html 작성
+          $.each(data2, function(index){
+              html += appendViewList(data2[index].userId,data2[index].listDate,data2[index].contTxt);
+          });
+          $(this).find('tbody').html(html); //게시글 내용 append
+          resetPage(totalPage,page); //총 게시글수, 총 페이지 번호 리셋
+        },
+        timeout : 3000,
+        complete: function(){
+          //토탈페이지에따른 정렬
+        },
+        error:function(request,status,error){
+          //console.log(request.responseText);
+        //  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+      }); //end of ajax
+    }// END contentList 
+
+    //content List 정렬 - 불러오는 content를 html로 append
+    function appendViewList(userId, date, content){
+      var html = '<tr>';
+      html += '<th>글쓴이 : <span>'+ usrId +'</span></th>';
+      html += '<td>날짜 : '+ date +'</td>';
+      html += '<th>'+ content +'</td>';
+      return html;      
+    }//END appendViewList
+    //resetPage - 페이지 번호 재생성
+    function resetPage(totalPages, page){  
+      var totalPages = parseInt(totalPages,10);
+      $('#pagination').empty().removeData("twbs-pagination").unbind("page").twbsPagination({
+          totalPages: totalPages,
+          startPage: page,
+          visiblePages: 10,
+          onPageClick: function(event, page){
+              contentList(page);   
+          }  
+        });
+    } //END resetPage 
+  });
+</script>
+</body>
+
+</html>
