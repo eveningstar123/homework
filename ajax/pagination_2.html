@@ -66,8 +66,8 @@
         },
         dataType : 'json',
         success : function(data){
-          console.log(data);
           var lengthD = Oject.keys(data2018).length;
+          console.log(lengthD);
           var totalPage = lengthD;
           var data2 = data.result; // json 데이터
           var html = "";
@@ -85,7 +85,6 @@
         },
         error:function(request,status,error){
           console.log(request.responseText);
-          console.log(data);
         //  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
       }); //end of ajax
