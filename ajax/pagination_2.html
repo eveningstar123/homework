@@ -32,6 +32,7 @@
         </div>
         <!-- pagination -->
         <ul id="pagination" class="pagination"></ul>
+        
       </div>
     </div>
 
@@ -73,7 +74,7 @@
           $.each(data2, function(index){
               html += appendViewList(data2[index].userId,data2[index].listDate,data2[index].contTxt);
           });
-          $(this).find('tbody').html(html); //게시글 내용 append
+          $("#page-content").find('tbody').html(html); //게시글 내용 append
           resetPage(totalPage,page); //총 게시글수, 총 페이지 번호 리셋
         },
         timeout : 3000,
@@ -81,7 +82,7 @@
           //토탈페이지에따른 정렬
         },
         error:function(request,status,error){
-          //console.log(request.responseText);
+          console.log(request.responseText);
         //  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
       }); //end of ajax
