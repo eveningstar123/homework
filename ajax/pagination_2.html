@@ -32,7 +32,7 @@
         </div>
         <!-- pagination -->
         <ul id="pagination" class="pagination"></ul>
-        
+
       </div>
     </div>
 
@@ -66,13 +66,14 @@
         },
         dataType : 'json',
         success : function(data){
+          console.log(data);
           var totalPage = data.total_page;
           var data2 = data.result; // json 데이터
           var html = "";
           var pagination = null; //다시 빈값 만들어주기
           //data.result로 게시물 html 작성
           $.each(data2, function(index){
-              html += appendViewList(data2[index].userId,data2[index].listDate,data2[index].contTxt);
+              html += appendViewList(data2[index].userId,data2[index].listData,data2[index].contTxt);
           });
           $("#page-content").find('tbody').html(html); //게시글 내용 append
           resetPage(totalPage,page); //총 게시글수, 총 페이지 번호 리셋
